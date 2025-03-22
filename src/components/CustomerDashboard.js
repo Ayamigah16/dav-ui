@@ -125,7 +125,7 @@ export default function CustomerDashboard() {
                     <br />
                     <strong>Account Type:</strong> {account.account_type}
                     <br />
-                    <strong>Balance:</strong> ${account.balance.toFixed(2)}
+                    <strong>Balance:</strong> ${account.balance}
                   </div>
                 </li>
               ))}

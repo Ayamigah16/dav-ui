@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import AdminDashboard from './AdminDashboard';
 
 export default function AuthPage({ type }) {
   const router = useRouter();
@@ -23,8 +22,8 @@ export default function AuthPage({ type }) {
   };
 
   const validateForm = () => {
-    // if (!formData.first_name.trim()) return 'First name is required';
-    // if (!formData.last_name.trim()) return 'Last name is required';
+    if (type === 'register' && !formData.first_name) return 'First name is required';
+    if (type === 'register' && !formData.last_name) return 'Last name is required';
     if (!formData.email.includes('@')) return 'Invalid email address';
     if (formData.password.length < 6) return 'Password must be at least 6 characters';
     return null;
@@ -58,6 +57,7 @@ export default function AuthPage({ type }) {
 
         // Store token in localStorage
         localStorage.setItem('access_token', token);
+        localStorage.setItem('refresh_token', response.data.refresh);
 
         const userResponse = await axios.get('http://localhost:8000/auth/user/', {
           headers: { Authorization: `Bearer ${token}` },
@@ -67,21 +67,14 @@ export default function AuthPage({ type }) {
           router.push('/dashboard/admin');
         } else if (user.role === 'Teller') {
           router.push('/dashboard/teller');
-        } else {
+        } else if (user.role === 'Customer') {
           router.push('/dashboard/customer')
         }
-        // return <AdminDashboard />;
-        // router.push('/dashboard');
       } else {
         alert('User registered successfully');
         setSuccess('User registered successfully');
       }
     } catch (err) {
-      console.log(err)
-      console.error("Full Error Object:", err);
-      console.error("Error Response:", err.response?.data || "No response data");
-      console.error("Error Message:", err.message);
-      console.error("Registration Error:", err.response?.data || err.message); // Log exact error
       setError(err.response?.data?.message || err.message); // Display error message
     }
     setLoading(false);

@@ -12,8 +12,8 @@ const Navbar = () => {
                     <li><Link href="/"><p className="hover:underline">Home</p></Link></li>
                     {/* <li><Link href="/auth/register"><p className="hover:underline">Register</p></Link></li> */}
                     <li><Link href="/auth/login"><p className="hover:underline">Login</p></Link></li>
-                    {/* <li><Link href="/accounts"><p className="hover:underline">Accounts</p></Link></li>
-                    <li><Link href="/transactions"><p className="hover:underline">Transactions</p></Link></li>
+                    <li><Link href="/auth/logout"><p className="hover:underline">Logout</p></Link></li>
+                    {/* <li><Link href="/transactions"><p className="hover:underline">Transactions</p></Link></li>
                     <li><Link href="/logs"><p className="hover:underline">Audit Logs</p></Link></li> */}
                 </ul>
             </div>
